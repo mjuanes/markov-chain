@@ -3,47 +3,33 @@
 
 
 class MarkovChain:
-    """Represents a robot, with a name."""
+    """
+    Files set used to create the chain
+    Used to not repeat.
+    """
+    files_names = []
 
-    # A class variable, counting the number of robots
-    population = 0
+    def __init__(self):
+        self.files_names = []
 
-    def __init__(self, name):
-        """Initializes the data."""
-        self.name = name
-        print("(Initializing {})".format(self.name))
+    """
+    map  key[pair of words] -> map(word -> quantity of occurrences)
+    """
+    bigrams = {}
 
-        # When this person is created, the robot
-        # adds to the population
-        Robot.population += 1
+    def add_bigram(self, bigram, word):
+        """
+        :param bigram: par of 2 words (word1, words 2)
+        :param word: the third word of the program
+        :return:
+        """
+        bigram_data = self.get_bigram_data(bigram)
+        bigram_data = [] if bigram_data is None else bigram_data
+        bigram_data[word] = 0 if word not in bigram_data else bigram_data[word] + 1
+        self.bigrams[bigram] = bigram_data
 
-    def die(self):
-        """I am dying."""
-        print("{} is being destroyed!".format(self.name))
-
-        Robot.population -= 1
-
-        if Robot.population == 0:
-            print("{} was the last one.".format(self.name))
+    def get_bigram_data(self, bigram):
+        if bigram in self.bigrams:
+            return self.bigrams[bigram]
         else:
-            print("There are still {:d} robots working.".format(
-                Robot.population))
-
-    def say_hi(self):
-        """Greeting by the robot.
-
-        Yeah, they can do that."""
-        print("Greetings, my masters call me {}.".format(self.name))
-
-    # el @classmethod me permite acceder a las variables de la clase
-    # With classmethods, the class of the object instance is implicitly passed as the first argument instead of self.
-    @classmethod
-    def how_many(cls):
-        """Prints the current population."""
-        print("We have {:d} robots.".format(cls.population))
-
-    # With staticmethods, neither self (the object instance) nor  cls (the class) is implicitly passed as the first argument.
-    # They behave like plain functions except that you can call them from an instance or the class:
-    @staticmethod
-    def say_hello():
-        print("I robot I'm great")
+            None

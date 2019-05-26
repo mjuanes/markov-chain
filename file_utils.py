@@ -2,20 +2,21 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
+
+WORD_PATTEN = re.compile("[\wáéíóúüÁÉÍÓÚÜ]{1,}", re.IGNORECASE)
+FILES_RELATIVE_PATH = "./texts"
 
 
-def main():
-    files = os.listdir("./texts")
+def files():
+    files = os.listdir(FILES_RELATIVE_PATH)
     for file in files:
-        path = os.path.abspath("./texts/" + file)
-        print(path)
-        file = open(path, "r")
-        for line in read_sentences(file):
-            print("Oración:" + line)
-        file.close()
+        full_path = os.path.abspath(FILES_RELATIVE_PATH + file)
+        yield full_path
 
 
-def read_sentences(file):
+# Receives a file
+def sentences(file):
     line_buffer = ""
     for line in file.readlines():
         line_buffer = line_buffer + " " + sanitize_line(line)
@@ -25,14 +26,14 @@ def read_sentences(file):
                 yield sentence
             line_buffer = ""
         elif "." in line_buffer:
-            sentences = (line_buffer).split(".")
+            sentences = line_buffer.split(".")
             for sentence in sentences[0:len(sentences) - 2]:
                 yield sentence
             line_buffer = sentences[len(sentences)-2]
 
+def text_to_words(text):
+    return WORD_PATTEN.findall(text)
+
 
 def sanitize_line(line):
     return line.replace('\n', ' ').replace('  ', ' ').strip()
-
-if __name__ == '__main__':
-    main()
