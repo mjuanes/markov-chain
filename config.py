@@ -4,7 +4,7 @@
 
 import json
 
-config = None
+CONFIG = None
 
 with open('config.json', 'r') as f:
     config = json.load(f)

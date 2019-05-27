@@ -108,3 +108,5 @@ bin*
 include*
 share*
 pip-selfcheck.json
+
+MarkovChain.class

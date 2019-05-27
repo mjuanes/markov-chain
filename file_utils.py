@@ -9,10 +9,11 @@ FILES_RELATIVE_PATH = "./texts"
 
 
 def files():
-    files = os.listdir(FILES_RELATIVE_PATH)
-    for file in files:
-        full_path = os.path.abspath(FILES_RELATIVE_PATH + file)
-        yield full_path
+    file_list = os.listdir(FILES_RELATIVE_PATH)
+    for file_name in file_list:
+        full_path = os.path.abspath(FILES_RELATIVE_PATH + "/" + file_name)
+        with open(full_path) as file:
+            yield file
 
 
 # Receives a file
@@ -22,14 +23,15 @@ def sentences(file):
         line_buffer = line_buffer + " " + sanitize_line(line)
         if line_buffer.endswith("."):
             sentences = line_buffer.split(".")
-            for sentence in sentences[0: len(sentences)-1]:
+            for sentence in sentences[0: len(sentences) - 1]:
                 yield sentence
             line_buffer = ""
         elif "." in line_buffer:
             sentences = line_buffer.split(".")
             for sentence in sentences[0:len(sentences) - 2]:
                 yield sentence
-            line_buffer = sentences[len(sentences)-2]
+            line_buffer = sentences[len(sentences) - 2]
+
 
 def text_to_words(text):
     return WORD_PATTEN.findall(text)
