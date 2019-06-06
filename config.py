@@ -7,4 +7,7 @@ import json
 CONFIG = None
 
 with open('config.json', 'r') as f:
-    config = json.load(f)
+    CONFIG = json.load(f)
+
+
+PRECEDENCE_QTY = CONFIG['DEFAULT']['PRECEDENCE_QTY']

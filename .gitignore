@@ -109,4 +109,5 @@ include*
 share*
 pip-selfcheck.json
 
-MarkovChain.class
+MarkovChain.ser
+./text

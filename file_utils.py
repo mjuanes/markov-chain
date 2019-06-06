@@ -8,7 +8,7 @@ WORD_PATTEN = re.compile("[\wáéíóúüÁÉÍÓÚÜ]{1,}", re.IGNORECASE)
 FILES_RELATIVE_PATH = "./texts"
 
 
-def files():
+def files_names():
     file_list = os.listdir(FILES_RELATIVE_PATH)
     for file_name in file_list:
         full_path = os.path.abspath(FILES_RELATIVE_PATH + "/" + file_name)

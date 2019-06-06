@@ -5,7 +5,7 @@ import pickle
 
 from MarkovChain import MarkovChain
 from config import CONFIG
-from file_utils import files
+from file_utils import files_names
 from file_utils import sentences
 from file_utils import text_to_words
 from log import Log
@@ -13,7 +13,7 @@ from log import Log
 LOG = Log()
 
 def main():
-    chain = pickle.load(open("MarkovChain.class", "rb"))
+    chain = pickle.load(open("MarkovChain.ser", "rb"))
 
     new_review = []
     word1 = "THE"
